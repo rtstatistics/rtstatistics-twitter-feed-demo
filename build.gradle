@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+jar {
+	baseName = 'twitter-feed-demo'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('net.sf.jabb:jabb-core:1.0.116-SNAPSHOT')
+	compile('org.twitter4j:twitter4j-stream:4.0.4')
+	compile('com.fasterxml.jackson.core:jackson-databind:2.8.1')
+	compile('org.springframework:spring-web:4.3.2.RELEASE')
+	compile('org.slf4j:slf4j-api:1.7.21')
+	compile('org.slf4j:jcl-over-slf4j:1.7.21')
+	compile('org.slf4j:log4j-over-slf4j:1.7.21')
+	compile('ch.qos.logback:logback-classic:1.1.7')
+	testCompile('junit:junit:4.12')
+}
