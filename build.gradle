@@ -27,10 +27,13 @@ repositories {
 
 
 dependencies {
-	compile('net.sf.jabb:jabb-core:1.0.116-SNAPSHOT')
+	compile('com.rtstatistics:api-client:1.0.1')
 	compile('org.twitter4j:twitter4j-stream:4.0.4')
 	compile('com.fasterxml.jackson.core:jackson-databind:2.8.1')
-	compile('org.springframework:spring-web:4.3.2.RELEASE')
+	compile('org.springframework:spring-web:4.3.2.RELEASE'){
+		exclude module: 'spring-aop'
+		exclude module: 'spring-context'
+	}
 	compile('org.slf4j:slf4j-api:1.7.21')
 	compile('org.slf4j:jcl-over-slf4j:1.7.21')
 	compile('org.slf4j:log4j-over-slf4j:1.7.21')
