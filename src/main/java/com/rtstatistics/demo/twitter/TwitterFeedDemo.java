@@ -1,5 +1,6 @@
 package com.rtstatistics.demo.twitter;
 
+import net.sf.jabb.util.prop.PropertiesLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +17,9 @@ import twitter4j.TwitterStreamFactory;
 public class TwitterFeedDemo implements StatusListener {
 	static private final Logger logger = LoggerFactory.getLogger(TwitterFeedDemo.class);
 	
-	String datasetId = System.getProperty("twitter.feed.demo.dataset.id", System.getenv("twitter.feed.demo.dataset.id"));
-	String datasetSendKey = System.getProperty("twitter.feed.demo.dataset.sendkey", System.getenv("twitter.feed.demo.dataset.sendkey"));
-	DataApiClient apiClient = new DataApiClient(datasetId, datasetSendKey, null);
+	String datasetId = PropertiesLoader.getPropertyFromSystemOrEnv("twitter.feed.demo.dataset.id");
+	String datasetSendKey = PropertiesLoader.getPropertyFromSystemOrEnv("twitter.feed.demo.dataset.sendkey");
+	DataApiClient apiClient = new DataApiClient(datasetId, datasetSendKey, null, null);
 	
 	public static void main(String[] args) {
 		
@@ -46,7 +47,7 @@ public class TwitterFeedDemo implements StatusListener {
 		long startTime = System.currentTimeMillis();
 		apiClient.send(status);
 		//logger.debug("Sent: {}", status);
-		logger.debug("Sent. ID={}, duration: {}", status.getId(), DurationFormatter.formatSince(startTime));
+		logger.debug("Sent. Twitter Status ID: {}, round trip: {}", status.getId(), DurationFormatter.formatSince(startTime));
 	}
 
 	@Override
