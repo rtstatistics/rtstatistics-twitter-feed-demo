@@ -1,0 +1,13 @@
+[Unit]
+Description=Twitter Feed Demo
+After=network.target sshd-keygen.service
+Wants=sshd-keygen.service
+
+[Service]
+ExecStart=java -Dtwitter4j.oauth.consumerKey=LcWqFdiUelH5DxY3EFQsnRYKA -Dtwitter4j.oauth.consumerSecret=MYLgD8ciUCDpeuYRIewevIn4hmpDi2FwbHavF0chwJA2dzm6sX -Dtwitter4j.oauth.accessToken=716081626237632512-80bWlwIDjVLcKRKoqJPZyb9Rem0EtLL -Dtwitter4j.oauth.accessTokenSecret=UBzhVVAUqKeWrA65MWwvmzOHXFlZYR3j9S2coV00heodO -Dtwitter.feed.demo.dataset.id=oSg$RmGZmBCBrwBfebACDOA0 -Dtwitter.feed.demo.dataset.sendkey=kBE1bDcgXTOUZsdIipfs-55ArZUETGCIAAe3Dob9vkpBoLvoOVkkA4CIBTOaKQMuPiFkNP08eDF6NC-yb_mYsA -jar /opt/twitter-feed-demo/twitter-feed-demo-0.0.1-SNAPSHOT.jar >> /var/log/rts/twitter-feed-demo.log
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target
