@@ -4,7 +4,7 @@ After=network.target sshd-keygen.service
 Wants=sshd-keygen.service
 
 [Service]
-Type=forking
+Type=simple
 
 Environment=twitter4j.oauth.consumerKey=LcWqFdiUelH5DxY3EFQsnRYKA
 Environment=twitter4j.oauth.consumerSecret=MYLgD8ciUCDpeuYRIewevIn4hmpDi2FwbHavF0chwJA2dzm6sX
