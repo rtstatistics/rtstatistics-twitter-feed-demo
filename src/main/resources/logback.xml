@@ -7,9 +7,9 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.rtstatistics.demo" level="debug"/>
+	<logger name="com.rtstatistics.demo" level="INFO"/>
 
-	<root level="info">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
 

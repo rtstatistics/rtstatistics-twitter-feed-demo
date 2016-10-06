@@ -36,7 +36,7 @@ public class TwitterFeedDemo implements StatusListener {
 			public void run(){
 				logger.debug("Cleaning up...");
 				twitterStream.cleanUp();
-				logger.debug("Successfully cleaned up");
+				logger.info("Successfully cleaned up");
 			}
 		});
 	}
@@ -46,8 +46,9 @@ public class TwitterFeedDemo implements StatusListener {
 		//logger.debug("Received: {}", status);
 		long startTime = System.currentTimeMillis();
 		apiClient.send(status);
-		//logger.debug("Sent: {}", status);
-		logger.debug("Sent. Twitter Status ID: {}, round trip: {}", status.getId(), DurationFormatter.formatSince(startTime));
+		if (logger.isDebugEnabled()){
+			logger.debug("Sent. Twitter Status ID: {}, round trip: {}", status.getId(), DurationFormatter.formatSince(startTime));
+		}
 	}
 
 	@Override
