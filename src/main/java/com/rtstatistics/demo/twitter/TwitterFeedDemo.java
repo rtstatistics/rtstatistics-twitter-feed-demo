@@ -30,12 +30,15 @@ public class TwitterFeedDemo implements StatusListener {
 	public static void main(String[] args) {
 		TwitterFeedDemo worker = new TwitterFeedDemo();
 
+		System.out.println("Connect to twitter.com");
+		logger.info("Connect to twitter.com");
+
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
 		twitterStream.addListener(worker);
 		
-		logger.debug("Start to receive sampled feeds from twitter.com");
 		twitterStream.sample();
-		logger.info("Successfully started. Press Ctrl-C to stop.");
+		System.out.println("Successfully started. Press Ctrl-C to stop.");
+		logger.info("Successfully started receiving sampled feeds from twitter.com");
 
 		AtomicBoolean stop = new AtomicBoolean(false);
 		Runtime.getRuntime().addShutdownHook(new Thread(){
