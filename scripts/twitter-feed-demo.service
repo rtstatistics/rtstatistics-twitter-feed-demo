@@ -13,7 +13,7 @@ Environment='TWITTER_FEED_DEMO_DATASET_SENDKEY=YyPK_uRsNLdN2SE3mOItz7YQX92CxjmoO
 User=tomcat
 Group=tomcat
 
-ExecStart=/usr/bin/java -jar /opt/twitter-feed-demo/twitter-feed-demo-0.0.1-SNAPSHOT.jar >> /var/log/rts/twitter-feed-demo.log 2>&1
+ExecStart=/usr/bin/java $JAVA_OPTS -jar /opt/twitter-feed-demo/twitter-feed-demo-0.0.1-SNAPSHOT.jar >> /var/log/rts/twitter-feed-demo.log 2>&1
 KillMode=process
 Restart=on-failure
 RestartSec=42s
