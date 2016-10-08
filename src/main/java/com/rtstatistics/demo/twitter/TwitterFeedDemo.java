@@ -1,5 +1,6 @@
 package com.rtstatistics.demo.twitter;
 
+import net.sf.jabb.util.parallel.WaitStrategies;
 import net.sf.jabb.util.prop.PropertiesLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,31 +15,47 @@ import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
+
 public class TwitterFeedDemo implements StatusListener {
 	static private final Logger logger = LoggerFactory.getLogger(TwitterFeedDemo.class);
 	
 	String datasetId = PropertiesLoader.getPropertyFromSystemOrEnv("twitter.feed.demo.dataset.id");
 	String datasetSendKey = PropertiesLoader.getPropertyFromSystemOrEnv("twitter.feed.demo.dataset.sendkey");
 	DataApiClient apiClient = new DataApiClient(datasetId, datasetSendKey, null, null);
-	
+
+	AtomicLong sentCount = new AtomicLong(0);
+
 	public static void main(String[] args) {
-		
+		TwitterFeedDemo worker = new TwitterFeedDemo();
+
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-		twitterStream.addListener(new TwitterFeedDemo());
+		twitterStream.addListener(worker);
 		
 		logger.debug("Start to receive sampled feeds from twitter.com");
 		twitterStream.sample();
 		logger.info("Successfully started. Press Ctrl-C to stop.");
-		
-		
+
+		AtomicBoolean stop = new AtomicBoolean(false);
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			@Override
 			public void run(){
+				stop.set(true);
 				logger.debug("Cleaning up...");
 				twitterStream.cleanUp();
 				logger.info("Successfully cleaned up");
 			}
 		});
+
+		while(!stop.get()){
+			logger.info("Sent: {}", worker.sentCount.get());
+			try {
+				WaitStrategies.threadSleepStrategy().await(1000L * 60);
+			} catch (InterruptedException e) {
+				WaitStrategies.threadSleepStrategy().handleInterruptedException(e);
+			}
+		}
 	}
 	
 	@Override
@@ -46,6 +63,7 @@ public class TwitterFeedDemo implements StatusListener {
 		//logger.debug("Received: {}", status);
 		long startTime = System.currentTimeMillis();
 		apiClient.send(status);
+		sentCount.incrementAndGet();
 		if (logger.isDebugEnabled()){
 			logger.debug("Sent. Twitter Status ID: {}, round trip: {}", status.getId(), DurationFormatter.formatSince(startTime));
 		}
@@ -53,7 +71,7 @@ public class TwitterFeedDemo implements StatusListener {
 
 	@Override
 	public void onException(Exception ex) {
-		logger.error("Error happened when receiving from twitter.com", ex);
+		logger.error("Error happened when receiving or processing", ex);
 		
 	}
 
