@@ -1,9 +1,0 @@
-/var/log/rts/twitter-feed-demo.log {
-        hourly
-        maxsize 50M
-        rotate 100
-        copytruncate
-        missingok
-        dateext
-        dateformat -%Y%m%d-%s
-}
