@@ -27,10 +27,11 @@ java -Dtwitter4j.oauth.consumerKey=YOUR_KEY \
      -Dtwitter4j.oauth.consumerSecret=YOUR_SECRET \
      -Dtwitter4j.oauth.accessToken=YOUR_TOKEN \
      -Dtwitter4j.oauth.accessTokenSecret=YOUR_TOKEN_SECRET \
-     -Dtwitter.feed.demo.dataset.id=YOUR_DATASET_ID \
-     -Dtwitter.feed.demo.dataset.sendkey=YOUR_DATASET_SEND_KEY \
+     -DtwitterFeedDemoDatasetId=YOUR_DATASET_ID \
+     -DtwitterFeedDemoDatasetSendkey=YOUR_DATASET_SEND_KEY \
      -jar build/libs/twitter-feed-demo-0.0.1-SNAPSHOT.jar
 ```
+(Please note that you may need to escape the `$` sign in dataset ID with `\$`.)
 
 Or, first set these environment variables
 ```
@@ -38,9 +39,11 @@ $ export twitter4j.oauth.consumerKey=YOUR_KEY
 $ export twitter4j.oauth.consumerSecret=YOUR_SECRET
 $ export twitter4j.oauth.accessToken=YOUR_TOKEN
 $ export twitter4j.oauth.accessTokenSecret=YOUR_TOKEN_SECRET
-$ export twitter.feed.demo.dataset.id=YOUR_DATASET_ID
-$ export twitter.feed.demo.dataset.sendkey=YOUR_DATASET_SEND_KEY
+$ export TWITTER_FEED_DEMO_DATASET_ID=YOUR_DATASET_ID
+$ export TWITTER_FEED_DEMO_DATASET_SENDKEY=YOUR_DATASET_SEND_KEY
 ```
+(Please note that in many systems, `.` is not allowed in the name of environment variables.)
+
 and then just run:
 `java -jar build/libs/twitter-feed-demo-0.0.1-SNAPSHOT.jar`
 

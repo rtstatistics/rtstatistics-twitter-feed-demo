@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class TwitterFeedDemo implements StatusListener {
 	static private final Logger logger = LoggerFactory.getLogger(TwitterFeedDemo.class);
 	
-	String datasetId = PropertiesLoader.getPropertyFromSystemOrEnv("twitter.feed.demo.dataset.id");
-	String datasetSendKey = PropertiesLoader.getPropertyFromSystemOrEnv("twitter.feed.demo.dataset.sendkey");
+	String datasetId = PropertiesLoader.getPropertyFromSystemOrEnv("twitterFeedDemoDatasetId");
+	String datasetSendKey = PropertiesLoader.getPropertyFromSystemOrEnv("twitterFeedDemoDatasetSendkey");
 	DataApiClient apiClient = new DataApiClient(datasetId, datasetSendKey, null, null);
 
 	AtomicLong sentCount = new AtomicLong(0);
