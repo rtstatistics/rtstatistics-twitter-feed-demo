@@ -7,10 +7,21 @@
 		</encoder>
 	</appender>
 
+	<appender name="file-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/var/log/rts/twitter-feed-demo.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/var/log/rts/twitter-feed-demo_UTC_%d{yyyy-MM-dd_HH, UTC}.log</fileNamePattern>
+			<maxHistory>100</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS ZZZ, Australia/Melbourne} %-25.-25thread %-5level %-56logger{56} %msg%n</pattern>
+		</encoder>
+	</appender>
+
 	<logger name="com.rtstatistics.demo" level="INFO"/>
 
 	<root level="INFO">
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="file-appender" />
 	</root>
 
 </configuration>
